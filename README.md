@@ -7,7 +7,7 @@ Before building Nog compiler, please make sure you have installed the following 
 * CMake 3.13+
 * C++ compiler
 
-## Linux
+### Linux
 You can build this repository by executing the following command lines:
 
 ```sh
