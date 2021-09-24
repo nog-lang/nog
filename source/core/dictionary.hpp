@@ -28,6 +28,11 @@ template <typename K, typename V> struct Dictionary
         // Clear all the dictionary entries
         for (int i = 0; i < room; ++i)
             data[i].used = false;
+
+        // Debugging
+#if defined(debug)
+        console_writef(stream_output, "--> $yvoid Dictionary<K, V>::init(void)$w: Committing $y%$* bytes of memory.\n", static_cast<unsigned long long>(room * sizeof(Entry)));
+#endif
     }
 
     // Find entry 
@@ -65,6 +70,11 @@ template <typename K, typename V> struct Dictionary
         old_room  = room;
         room     *= 2;
         new_data  = memory_init<Entry>(room);
+
+        // Debugging
+#if defined(debug)
+        console_writef(stream_output, "--> $yvoid Dictionary<K, V>::adjust(void)$w: Committing $y%$* bytes of memory.\n", static_cast<unsigned long long>(room * sizeof(Entry)));
+#endif
 
         // Clear all the new entries
         for (int i = 0; i < room; ++i)
@@ -137,6 +147,11 @@ template <typename K, typename V> struct Dictionary
     {
         // Release the memory we've reserved
         memory_release<Entry>(data, room);
+
+        // Debugging
+#if defined(debug)
+        console_writef(stream_output, "--> $yvoid Dictionary<K, V>::free(void)$w: Releasing $y%$* bytes of memory.\n", static_cast<unsigned long long>(room * sizeof(Entry)));
+#endif
     }
 };
 

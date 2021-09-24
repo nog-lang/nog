@@ -14,11 +14,17 @@ template <typename T> struct List
     void init(void)
     {
         size = 0;
-        room = 64;
+        room = 1;
         data = memory_reserve<T>(GB(1));
 
         // Commit the bytes we're going to use
         memory_commit<T>(data, room);
+
+        // Debugging
+#if defined(debug)
+        console_writef(stream_output, "--> $yvoid List<K, V>::init(void)$w: Reserving $y%$* bytes of memory.\n", static_cast<unsigned long long>(GB(1)));
+        console_writef(stream_output, "--> $yvoid List<K, V>::init(void)$w: Committing $y%$* bytes of memory.\n", static_cast<unsigned long long>(room * sizeof(T)));
+#endif
     }
 
     // Add value to list
@@ -29,6 +35,11 @@ template <typename T> struct List
         {
             room *= 2;
             memory_commit<T>(data, room);
+
+            // Debugging
+#if defined(debug)
+        console_writef(stream_output, "--> $yunsigned int List<K, V>::add(const T &value)$w: Committing $y%$* bytes of memory.\n", static_cast<unsigned long long>(room * sizeof(T)));
+#endif
         }
 
         data[size++] = value;
@@ -58,6 +69,11 @@ template <typename T> struct List
     {
         // Release the 1 GB we've reserved
         memory_release<T>(data, GB(1));
+
+        // Debugging
+#if defined(debug)
+        console_writef(stream_output, "--> $yvoid List<K, V>::free(void)$w: Releasing $y%$* bytes of memory.\n", static_cast<unsigned long long>(GB(1)));
+#endif
     }
 };
 

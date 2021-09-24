@@ -11,6 +11,7 @@ file (GLOB SOURCE_COMPILER      "source/compiler/*.cpp")
 
 # Compile definitions
 add_compile_definitions (version_standard)
+add_compile_definitions (debug)
 
 # Include directories
 include_directories (source)

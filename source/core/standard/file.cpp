@@ -1,5 +1,6 @@
 #include <core/file.hpp>
 #include <core/memory.hpp>
+#include <core/console.hpp>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,6 +46,11 @@ bool file_read(File &file, const char *path)
 
     // Allocate file content
     file.content = memory_init<char>(file.size + 1);
+
+    // Debugging
+#if defined(debug)
+    console_writef(stream_output, "--> $ybool file_read(File &file, const char *path)$w: Committing $y%$* bytes of memory.\n", static_cast<unsigned long long>(file.size + 1));
+#endif
 
     // Read file
     fread(file.content, file.size, 1, file.handle);
