@@ -10,17 +10,15 @@ file (GLOB SOURCE_CORE          "source/core/*.cpp")
 file (GLOB SOURCE_COMPILER      "source/compiler/*.cpp")
 
 # Compiler
-set (DEBUG "false")
-
 add_compile_definitions (version_standard)
 
-if (DEBUG STREQUAL "true")
-    set (CMAKE_BUILD_TYPE "Debug")
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions (debug)
     add_compile_options (-Wall)
 else ()
     set (CMAKE_BUILD_TYPE "Release")
-    add_compile_options (-w)
+    add_compile_options (-w -flto=full)
+    set (CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 endif ()
 
 # Include directories

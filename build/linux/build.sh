@@ -4,7 +4,5 @@ if [ ! -d "out" ]; then
 fi
 
 # Build
-cmake -S . -B out
-cd out
-make
-cd ..
+cmake -S . -B out -D CMAKE_BUILD_TYPE=Debug
+cmake --build out --config Release
