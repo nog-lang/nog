@@ -16,9 +16,9 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions (debug)
     add_compile_options (-Wall)
 else ()
-    set (CMAKE_BUILD_TYPE "Release")
-    add_compile_options (-w -flto=full)
+    set (CMAKE_BUILD_TYPE                   "Release")
     set (CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+    add_compile_options (-w -flto=full)
 endif ()
 
 # Include directories
