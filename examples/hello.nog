@@ -1,0 +1,9 @@
+// Import console stuff from console module
+import console
+
+// This is the entry point function for every nog program
+void main()
+{
+    console_writeln("Hello, World!");
+    return 0;
+}
