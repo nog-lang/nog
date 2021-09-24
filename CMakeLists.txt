@@ -9,6 +9,9 @@ file (GLOB SOURCE_CORE_STANDARD "source/core/standard/*.cpp")
 file (GLOB SOURCE_CORE          "source/core/*.cpp")
 file (GLOB SOURCE_COMPILER      "source/compiler/*.cpp")
 
+# Compile definitions
+add_compile_definitions (version_standard)
+
 # Include directories
 include_directories (source)
 
