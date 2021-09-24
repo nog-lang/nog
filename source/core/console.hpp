@@ -18,8 +18,10 @@ enum
     console_value_string_view,
     console_value_string,
     console_value_char,
+    console_value_uint,
     console_value_int,
     console_value_float,
+    console_value_bool,
 };
 
 struct ConsoleValue
@@ -29,8 +31,10 @@ struct ConsoleValue
         const char *as_string;
         StringView  as_string_view;
         int8        as_char;
+        uint64      as_uint;
         int64       as_int;
         float64     as_float;
+        bool        as_bool;
     };
 
     uint32 type;
@@ -67,6 +71,13 @@ struct ConsoleValue
         type    = console_value_char;
     }
 
+    // Initialize as uint
+    ConsoleValue(unsigned long long value)
+    {
+        as_uint = value;
+        type   = console_value_uint;
+    }
+
     // Initialize as int
     ConsoleValue(long long value)
     {
@@ -79,6 +90,13 @@ struct ConsoleValue
     {
         as_float = value;
         type     = console_value_float;
+    }
+
+    // Initialize as bool
+    ConsoleValue(bool value)
+    {
+        as_bool = value;
+        type     = console_value_bool;
     }
 };
 

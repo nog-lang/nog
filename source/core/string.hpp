@@ -6,6 +6,9 @@
 // Get string length
 extern unsigned int string_length(const char *string);
 
+// Are both strings equal?
+extern bool string_equals(const char *a, const char *b, unsigned int length = 0);
+
 struct StringView
 {
     const char *string;

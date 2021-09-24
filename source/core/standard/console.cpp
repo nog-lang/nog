@@ -39,6 +39,12 @@ static void console_value_write(unsigned int stream, const ConsoleValue &value)
             break;
         }
 
+        case console_value_uint:
+        {
+            fprintf(streams[stream], "%llu", value.as_uint);
+            break;
+        }
+
         case console_value_int:
         {
             fprintf(streams[stream], "%lld", value.as_int);
@@ -48,6 +54,12 @@ static void console_value_write(unsigned int stream, const ConsoleValue &value)
         case console_value_float:
         {
             fprintf(streams[stream], "%lf", value.as_float);
+            break;
+        }
+
+        case console_value_bool:
+        {
+            fprintf(streams[stream], "%s", (value.as_bool) ? "true" : "false");
             break;
         }
     }
