@@ -72,13 +72,31 @@ struct ConsoleValue
     }
 
     // Initialize as uint
+    ConsoleValue(unsigned char value)
+    {
+        as_uint = value;
+        type    = console_value_uint;
+    }
+
+    ConsoleValue(unsigned int value)
+    {
+        as_uint = value;
+        type    = console_value_uint;
+    }
+
     ConsoleValue(unsigned long long value)
     {
         as_uint = value;
-        type   = console_value_uint;
+        type    = console_value_uint;
     }
 
     // Initialize as int
+    ConsoleValue(int value)
+    {
+        as_int = value;
+        type   = console_value_int;
+    }
+
     ConsoleValue(long long value)
     {
         as_int = value;
