@@ -29,5 +29,6 @@ add_executable (
     nog
 
     ${SOURCE_CORE_STANDARD}
+    ${SOURCE_CORE}
     ${SOURCE_COMPILER}
 )
