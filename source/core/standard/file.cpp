@@ -6,9 +6,9 @@
 #include <stdlib.h>
 
 // Open file
-bool File::open(const char *path_)
+bool File::open(const char *_path)
 {
-    path   = path_;
+    path   = _path;
     handle = fopen(path, "wb");
     size   = 0;
 
