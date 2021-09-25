@@ -3,6 +3,7 @@
 
 #include <core/memory.hpp>
 #include <core/compare.hpp>
+#include <core/console.hpp>
 
 template <typename T> struct List
 {
@@ -14,7 +15,7 @@ template <typename T> struct List
     void init(void)
     {
         size = 0;
-        room = 1;
+        room = 64;
         data = memory_reserve<T>(GB(1));
 
         // Commit the bytes we're going to use
@@ -38,7 +39,7 @@ template <typename T> struct List
 
             // Debugging
 #if defined(debug)
-        console_writef(stream_output, "--> $yunsigned int List<K, V>::add(const T &value)$w: Committing $y%$* bytes of memory.\n", static_cast<unsigned long long>(room * sizeof(T)));
+            console_writef(stream_output, "--> $yunsigned int List<K, V>::add(const T &value)$w: Committing $y%$* bytes of memory.\n", static_cast<unsigned long long>(room * sizeof(T)));
 #endif
         }
 

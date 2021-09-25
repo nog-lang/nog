@@ -33,6 +33,46 @@ struct StringView
     {
         return string;
     }
+
+    // Get character from string view
+    char operator[](unsigned int index)
+    {
+        return string[index];
+    }
+};
+
+struct StringBuilder
+{
+    uint32  length;
+    uint32  capacity;
+    char   *data;
+
+    // Initialize the string builder
+    void init(void);
+
+    // Add character to string builder
+    void add(char character);
+
+    // Add string to string builder
+    void add(const char *string);
+
+    // Add string view to string builder
+    void add(const StringView &string);
+
+    // Release the string builder memory
+    void free(void);
+
+    // Get string builder as string
+    operator const char *(void)
+    {
+        return reinterpret_cast<const char *>(data);
+    }
+
+    // Get character from string builder
+    char operator[](unsigned int index)
+    {
+        return data[index];
+    }
 };
 
 #endif
