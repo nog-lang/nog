@@ -9,6 +9,18 @@ extern unsigned int string_length(const char *string);
 // Are both strings equal?
 extern bool string_equals(const char *a, const char *b, unsigned int length = 0);
 
+// Convert integer to string
+extern void to_string(char *buffer, long long value);
+
+// Convert float to string
+extern void to_string(char *buffer, double value, unsigned int precision);
+
+// Convert string to integer
+extern long long string_to_integer(const char *string);
+
+// Convert string to float
+extern double string_to_float(const char *string);
+
 struct StringView
 {
     const char *string;
@@ -58,6 +70,22 @@ struct StringBuilder
 
     // Add string view to string builder
     void add(const StringView &string);
+
+    // Add integer to string builder
+    void add(long long value);
+
+    void add(int value)
+    {
+        add(static_cast<long long>(value));
+    }
+
+    // Add float to string builder
+    void add(double value);
+
+    void add(float value)
+    {
+        add(static_cast<double>(value));
+    }
 
     // Release the string builder memory
     void free(void);

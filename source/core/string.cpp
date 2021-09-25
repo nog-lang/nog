@@ -77,6 +77,24 @@ void StringBuilder::add(const StringView &view)
         data[length++] = view.string[i];
 }
 
+// Add integer to string builder
+void StringBuilder::add(long long value)
+{
+    char buffer[64];
+    to_string(buffer, value);
+
+    add(buffer);
+}
+
+// Add float to string builder
+void StringBuilder::add(double value)
+{
+    char buffer[64];
+    to_string(buffer, value, 6);
+
+    add(buffer);
+}
+
 // Release the string builder memory
 void StringBuilder::free(void)
 {
