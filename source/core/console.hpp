@@ -59,9 +59,10 @@ struct ConsoleValue
     }
 
     // Initialize as string view
-    ConsoleValue(const StringView &value)
+    ConsoleValue(StringView value)
     {
         as_string_view = value;
+        type           = console_value_string_view;
     }
 
     // Initialize as char

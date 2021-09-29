@@ -9,6 +9,9 @@ extern unsigned int string_length(const char *string);
 // Are both strings equal?
 extern bool string_equals(const char *a, const char *b, unsigned int length = 0);
 
+// Find character in string
+extern const char *string_find(const char *string, char character);
+
 // Convert integer to string
 extern void to_string(char *buffer, long long value);
 
@@ -25,6 +28,13 @@ struct StringView
 {
     const char *string;
     uint32      length;
+
+    // Default constructor
+    StringView(void)
+    {
+        string = nullptr;
+        length = 0;
+    }
 
     // Initialize without length
     StringView(const char *value)

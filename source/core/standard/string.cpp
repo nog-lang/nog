@@ -18,6 +18,12 @@ bool string_equals(const char *a, const char *b, unsigned int length)
     return (strncmp(a, b, length) == 0);
 }
 
+// Find character in string
+const char *string_find(const char *string, char character)
+{
+    return strchr(string, character);
+}
+
 // Convert integer to string
 void to_string(char *buffer, long long value)
 {
