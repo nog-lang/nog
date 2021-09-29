@@ -3,10 +3,27 @@
 
 #include <core/types.hpp>
 
-// Just some macros to calculate bytes.
 #define KB(x) (x * 1024)
 #define MB(x) (x * KB(1) * 1024)
 #define GB(x) (x * MB(1) * 1024)
+
+struct BumpAllocator
+{
+    uint32  size;
+    uint32  room;
+    uint8  *data;
+
+    // Initialize the bump allocator
+    void init(void);
+
+    // Allocate 
+    void *allocate(unsigned long long size);
+
+    template <typename T> T *allocate(unsigned long long size)
+    {
+        return reinterpret_cast<T *>(allocate(size * sizeof(T)));
+    }
+};
 
 // Reserve virtual memory
 extern void *memory_reserve(unsigned long long size);

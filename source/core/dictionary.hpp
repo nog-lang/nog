@@ -4,6 +4,7 @@
 #include <core/memory.hpp>
 #include <core/hash.hpp>
 #include <core/compare.hpp>
+#include <core/console.hpp>
 
 template <typename K, typename V> struct Dictionary
 {
