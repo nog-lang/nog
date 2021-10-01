@@ -1,9 +1,16 @@
+extern void something();
+
+private uint hello()
+{
+    return -2;
+}
+
 int main()
 {
     return 0;
 }
 
-void test()
+private byte A()
 {
-    return;
+    return 65;
 }

@@ -195,6 +195,10 @@ void Compiler::compile_to_c(void)
             {
                 NodeFunction &function_node = node.as_function;
 
+                // Make sure function isn't private
+                if (function_node.property.type == token_private)
+                    break;
+
                 c_header.add("extern ");
                 type(c_header, function_node.type);
                 c_header.add(function_node.name.content);
@@ -212,6 +216,7 @@ void Compiler::compile_to_c(void)
     comment(c_source, "https://github.com/nog-lang/nog\n");
 
     quoted_include(c_source, "main.h");
+    c_source.add('\n');
 
     for (node_id = 0; node_id < parser.ast.size; ++node_id)
     {
@@ -222,12 +227,44 @@ void Compiler::compile_to_c(void)
             // Function declaration
             case node_function:
             {
-                ++tabs;
-
                 NodeFunction &function_node = node.as_function;
-                NodeBlock    &block_node    = function_node.block->as_block;
 
+                // Make sure function isn't extern
+                if (function_node.property.type == token_extern || function_node.property.type != token_private)
+                    break;
+                
+                c_source.add("static ");
+                type(c_source, function_node.type);
+                c_source.add(function_node.name.content);
+                c_source.add("();\n");
+                break;
+            }
+        }
+    }
+
+    for (node_id = 0; node_id < parser.ast.size; ++node_id)
+    {
+        Node &node = parser.ast.get(node_id);
+
+        switch (node.type)
+        {
+            // Function declaration
+            case node_function:
+            {
+                NodeFunction &function_node = node.as_function;
+
+                // Make sure function isn't extern
+                if (function_node.property.type == token_extern)
+                    break;
+
+                NodeBlock &block_node = function_node.block->as_block;
+
+                ++tabs;
                 c_source.add('\n');
+                
+                if (function_node.property.type == token_private)
+                    c_source.add("static ");
+
                 type(c_source, function_node.type);
                 c_source.add(function_node.name.content);
                 c_source.add("()\n{\n");

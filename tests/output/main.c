@@ -3,12 +3,20 @@
 
 #include "main.h"
 
+static unsigned int hello();
+static char A();
+
+static unsigned int hello()
+{
+	return -2;
+}
+
 int main()
 {
 	return 0;
 }
 
-void test()
+static char A()
 {
-	return;
+	return 65;
 }

@@ -108,7 +108,7 @@ void Parser::learn(const char *source)
             // Import statement
             // case token_import:
             // {
-            //     consume(token_identifier, "Expect module name after 'import'.");
+            //     consume(token_identifier, "Expected module name after 'import'.");
 
             //     // Save current scanner
             //     Scanner current_scanner = scanner;
@@ -199,10 +199,22 @@ void Parser::statement(void)
 }
 
 // Parse type
-void Parser::type(bool is_const)
+void Parser::type(Token property)
 {
     Node  *node;
     Token  name;
+
+    // Is constant type?
+    bool is_const = (match(token_const) || scanner.previous_token.type == token_const);
+
+    // Get type
+    if (is_const)
+    {
+        advance();
+
+        if (!types.exists(scanner.previous_token.content))
+            error(scanner.previous_token, "Expected type.");
+    }
 
     // Make type node
     Type &ty = types.get(scanner.previous_token.content);
@@ -225,20 +237,30 @@ void Parser::type(bool is_const)
 
     // Is a function declaration?
     if (match(token_lparen))
-        function_declaration(node, name);
+        function_declaration(node, name, property);
 }
 
 // Parse function declaration
-void Parser::function_declaration(Node *type, const Token &name)
+void Parser::function_declaration(Node *type, const Token &name, Token property)
 {
     // Make function node
     NodeFunction &function_node = make_node(node_function)->as_function;
     function_node.type          = type;
     function_node.name          = name;
+    function_node.property      = property;
 
     consume(token_rparen, "Expected ')' after function parameters.");
 
     // Make block node
+    if (property.type == token_extern && scanner.current_token.type != token_lbrace)
+    {
+        function_node.block = nullptr;
+
+        // Optional semicolon
+        match(token_semicolon);
+        return;
+    }
+
     consume(token_lbrace, "Expected '{'.");
     function_node.block = block();
 }
@@ -248,23 +270,31 @@ void Parser::declaration(void)
 {
     scanner.next_token();
 
-    // A function or variable declaration?
-    if (types.exists(scanner.previous_token.content))
+    // Parse property
+    Token property;
+
+    if (scanner.previous_token.type == token_extern || scanner.previous_token.type == token_private)
     {
-        type(false);
+        property = scanner.previous_token;
+        advance();
+    }
+    else
+        property.type = token_none;
+
+    // A function or variable declaration?
+    if (scanner.previous_token.type == token_const || types.exists(scanner.previous_token.content))
+    {
+        type(property);
         return;
     }
 
+    // No type after property?
+    if (property.type != token_none)
+        error(property, "Expected type.");
+
     switch (scanner.previous_token.type)
     {
-        // Constant type
-        case token_const:
-        {
-            scanner.next_token();
-            type(true);
 
-            break;
-        }
     }
 }
 

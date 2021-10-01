@@ -24,6 +24,14 @@ static bool parse_args(unsigned int argument_count, char **arguments)
         if (string_equals(argument, "--output", 9))
             g_output = arguments[++i];
 
+        // C backend
+        else if (string_equals(argument, "--C", 3) || string_equals(argument, "--c", 3))
+            g_backend = backend_c;
+        
+        // x64 backend
+        else if (string_equals(argument, "--x64", 5) || string_equals(argument, "--X64", 5))
+            g_backend = backend_x64;
+
         // Import path?
         else if (string_equals(argument, "-I", 2))
             is_import_path = true;

@@ -280,7 +280,7 @@ unsigned int Scanner::next_token(void)
 
     character = advance();
 
-    if (is_number(character))
+    if (is_number(character) || (character == '-' && is_number(*current)))
         return make_number_token();
 
     if (is_identifier(character))

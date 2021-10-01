@@ -64,10 +64,10 @@ struct Parser
     void statement(void);
 
     // Parse type
-    void type(bool is_const);
+    void type(Token property);
 
     // Parse function declaration
-    void function_declaration(Node *type, const Token &name);
+    void function_declaration(Node *type, const Token &name, Token property);
 
     // Parse declaration
     void declaration(void);

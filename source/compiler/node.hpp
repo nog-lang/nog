@@ -78,6 +78,7 @@ struct NodePrimitiveType
 struct NodeFunction
 {
     Token       name;
+    Token       property;
     NodePointer type;
     NodePointer block;
 };
