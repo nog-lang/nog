@@ -1,5 +1,5 @@
-#ifndef COMPILER_ASSEMBLER_HPP
-#define COMPILER_ASSEMBLER_HPP
+#ifndef COMPILER_x64_HPP
+#define COMPILER_x64_HPP
 
 #include <core/buffer.hpp>
 #include <core/string.hpp>

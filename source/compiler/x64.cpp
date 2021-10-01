@@ -1,4 +1,4 @@
-#include <compiler/assembler.hpp>
+#include <compiler/x64.hpp>
 
 // Initialize the assembler
 void x64Assembler::init(void)
@@ -19,7 +19,7 @@ void x64Assembler::mov_reg_imm32(const x64Register &reg, int value)
 {
     code.write<unsigned char>(0xB8 + static_cast<unsigned char>(reg.index));
     code.write<int>(value);
-    text.add("\tmov ");
+    text.add("    mov ");
     text.add(reg.name);
     text.add(", ");
     text.add(value);
@@ -30,5 +30,5 @@ void x64Assembler::mov_reg_imm32(const x64Register &reg, int value)
 void x64Assembler::ret(void)
 {
     code.write<unsigned char>(0xC3);
-    text.add("\tret\n");
+    text.add("    ret\n");
 }

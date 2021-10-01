@@ -1,9 +1,19 @@
 #include <compiler/compiler.hpp>
+#include <compiler/config.hpp>
 
 // Initialize the compiler
 void Compiler::init(void)
 {
     parser.init();
+}
+
+// Make SSA
+SSA *Compiler::make_ssa(unsigned int type)
+{
+    SSA ssa;
+    ssa.type = type;
+
+    return &ir.get(ir.add(ssa));
 }
 
 // Compile
@@ -13,10 +23,16 @@ bool Compiler::compile(void)
     if (!parser.parse())
         return false;
 
-    // Traverse the AST for testing
-    for (int i = 0; i < parser.ast.size; ++i)
+    // Check for backend
+    switch (g_backend)
     {
-        console_writeln(parser.ast.get(i).type);
+        // x64
+        case backend_x64:
+        {
+            compile_to_ir();
+            compile_to_x64();
+            break;
+        }
     }
 
     return true;
