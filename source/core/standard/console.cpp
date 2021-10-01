@@ -126,14 +126,14 @@ void console_writef(unsigned int stream, const char *format, const std::initiali
                     // Normal red
                     case 'r':
                     {
-                        fprintf(streams[stream], "\033[0;31m");
+                        fprintf(streams[stream], "\033[0;91m");
                         break;
                     }
 
                     // Bold red
                     case 'R':
                     {
-                        fprintf(streams[stream], "\033[1;31m");
+                        fprintf(streams[stream], "\033[1;91m");
                         break;
                     }
 
