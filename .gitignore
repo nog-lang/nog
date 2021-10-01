@@ -2,4 +2,5 @@
 .vscode
 
 # Output
-out
+out/
+tests/output/*.out

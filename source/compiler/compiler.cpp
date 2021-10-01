@@ -26,6 +26,13 @@ bool Compiler::compile(void)
     // Check for backend
     switch (g_backend)
     {
+        // C
+        case backend_c:
+        {
+            compile_to_c();
+            break;
+        }
+
         // x64
         case backend_x64:
         {

@@ -71,8 +71,8 @@ struct Expression
 
 struct NodePrimitiveType
 {
-    bool   is_const;
-    uint32 token_type;
+    bool  is_const;
+    Token token;
 };
 
 struct NodeFunction

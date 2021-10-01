@@ -17,6 +17,10 @@ struct Compiler
     uint32 node_id;
 
     x64Assembler x64;
+
+    StringBuilder c_header;
+    StringBuilder c_source;
+    uint32        tabs;
     
     // Initialize the compiler
     void init(void);

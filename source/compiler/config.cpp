@@ -10,4 +10,4 @@ InputInformation g_input;
 const char *g_output = "out/";
 
 // The backend to compile
-uint32 g_backend = backend_x64;
+uint32 g_backend = backend_c;

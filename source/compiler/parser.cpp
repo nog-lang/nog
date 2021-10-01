@@ -217,7 +217,7 @@ void Parser::type(bool is_const)
 
         NodePrimitiveType &primitive_type_node = node->as_primitive_type;
         primitive_type_node.is_const           = is_const;
-        primitive_type_node.token_type         = scanner.previous_token.type;
+        primitive_type_node.token              = scanner.previous_token;
     }
 
     consume(token_identifier, "Expected identifier after type.");
