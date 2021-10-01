@@ -24,6 +24,8 @@ void Scanner::init(const char *_source)
     source  = _source;
     start   = source;
     current = source;
+    line    = 1;
+    column  = 1;
 
     // Initialize the keywords
     if (!allocated)

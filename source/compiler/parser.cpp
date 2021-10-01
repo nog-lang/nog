@@ -32,21 +32,21 @@ void Parser::init(void)
 void Parser::error(const char *message)
 {
     had_error = true;
-    console_writef(stream_error, "$rError:$* %\n", message);
+    console_writef(stream_error, "$RError:$* %\n", message);
 }
 
 // Show an error at token with message
 void Parser::error(Token token, const char *message)
 {
     had_error = true;
-    console_writef(stream_error, "[line %:%] $rError", token.line, token.column);
+    console_writef(stream_error, "[line %:%] $RError", token.line, token.column);
 
     if (token.type == token_end)
         console_writef(stream_error, " at end:$* $w");
     else if (token.type == token_error)
         console_writef(stream_error, ":$* $w");
     else
-        console_writef(stream_error, " at $w%$r:$* $w", token.content);
+        console_writef(stream_error, " at $w%$R:$* $w", token.content);
 
     console_writef(stream_error, message);
     console_writef(stream_error, "\n");
