@@ -3,20 +3,14 @@
 
 #include "main.h"
 
-static unsigned int hello();
-static char A();
+static void nog_runtime();
 
-static unsigned int hello()
+static void nog_runtime()
 {
-	return -2;
+	return;
 }
 
 int main()
 {
 	return 0;
-}
-
-static char A()
-{
-	return 65;
 }

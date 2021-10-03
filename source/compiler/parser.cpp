@@ -1,6 +1,52 @@
 #include <compiler/parser.hpp>
 #include <compiler/config.hpp>
 
+// Get primitive type node as type
+static unsigned int get_primitive_type(const NodePrimitiveType &type)
+{
+    switch (type.token.type)
+    {
+        case token_bool:
+        case token_ubyte:
+        case token_ushort:
+        case token_uint:
+        case token_ulong:
+        case token_byte:
+        case token_short:
+        case token_int:
+        case token_long:
+        case token_single:
+        case token_double:
+            return type_number;
+
+        case token_string_type:
+            return type_string;
+
+        default:
+            return type_void;
+    }
+}
+
+// Get primary type
+static unsigned int get_primary_type(const ExpressionPrimary &primary)
+{
+    switch (primary.type)
+    {
+        case primary_number:
+            return type_number;
+    }
+}
+
+// Get expression type
+static unsigned int get_expression_type(const Expression &expression)
+{
+    switch (expression.type)
+    {
+        case expression_primary:
+            return get_primary_type(expression.as_primary);
+    }
+}
+
 // Initialize the parser
 void Parser::init(void)
 {
@@ -177,9 +223,28 @@ void Parser::return_statement(void)
 
     // No return value?
     if (match(token_semicolon))
+    {
         return_node.expression = nullptr;
+
+        // Type checking
+        unsigned int function_type = get_primitive_type(current_function->type->as_primitive_type);
+
+        if (function_type != type_void)
+            error(scanner.previous_token, "You can't return nothing in a function without void type.");
+    }
     else
+    {
         return_node.expression = expression();
+
+        // Type checking
+        unsigned int expression_type = get_expression_type(return_node.expression->as_expression);
+        unsigned int function_type   = get_primitive_type(current_function->type->as_primitive_type);
+
+        if (function_type == type_void)
+            error(scanner.previous_token, "You can't return a value in a function with void type.");
+        else if (expression_type != function_type)
+            error(scanner.previous_token, "Return value type does not match function type.");
+    }
 }
 
 // Parse statement
@@ -249,6 +314,8 @@ void Parser::function_declaration(Node *type, const Token &name, Token property)
     function_node.name          = name;
     function_node.property      = property;
 
+    current_function = &function_node;
+
     consume(token_rparen, "Expected ')' after function parameters.");
 
     // Make block node
@@ -311,5 +378,12 @@ bool Parser::parse(void)
     while (!match(token_end))
         declaration();
 
+    return typer();
+}
+
+// Typer pass
+bool Parser::typer(void)
+{
+    // type inference stuff will happen here
     return !had_error;
 }

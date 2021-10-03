@@ -1,16 +1,10 @@
-extern void something();
-
-private uint hello()
+private void nog_runtime()
 {
-    return -2;
+    // initialize all the global variables
+    return;
 }
 
 int main()
 {
     return 0;
-}
-
-private byte A()
-{
-    return 65;
 }

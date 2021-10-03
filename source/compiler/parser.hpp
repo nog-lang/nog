@@ -6,6 +6,13 @@
 #include <core/list.hpp>
 #include <core/dictionary.hpp>
 
+enum
+{
+    type_void,
+    type_number,
+    type_string,
+};
+
 struct Symbol
 {
     uint32 flags;
@@ -26,6 +33,8 @@ struct Parser
 
     Dictionary<StringView, Symbol> symbol_table;
     Dictionary<StringView, Type>   types;
+
+    NodeFunction *current_function;
 
     // Initialize the parser
     void init(void);
@@ -74,6 +83,9 @@ struct Parser
 
     // Parse pass
     bool parse(void);
+
+    // Typer pass
+    bool typer(void);
 };
 
 #endif
