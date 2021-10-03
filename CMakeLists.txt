@@ -14,7 +14,6 @@ add_compile_definitions (version_standard)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions (debug)
-    add_compile_options (-Wall)
 else ()
     set (CMAKE_BUILD_TYPE                   "Release")
     set (CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)

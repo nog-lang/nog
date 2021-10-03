@@ -1,7 +1,7 @@
-private void nog_runtime()
+private bool nog_runtime()
 {
     // initialize all the global variables
-    return;
+    return 1;
 }
 
 int main()

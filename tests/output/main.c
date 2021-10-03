@@ -3,11 +3,11 @@
 
 #include "main.h"
 
-static void nog_runtime();
+static bool nog_runtime();
 
-static void nog_runtime()
+static bool nog_runtime()
 {
-	return;
+	return 1;
 }
 
 int main()

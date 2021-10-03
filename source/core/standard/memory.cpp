@@ -4,8 +4,10 @@
 
 #if defined(__linux__)
 #include <sys/mman.h>
+#elif defined(_WIN32)
+#include <windows.h>
 #else
-#error "This platform is not supported yet."
+#error This platform is not supported yet.
 #endif
 
 // Reserve virtual memory
@@ -13,6 +15,13 @@ void *memory_reserve(unsigned long long size)
 {
 #if defined(__linux__)
     void *memory = mmap(0, size, 0, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+
+    if (memory == nullptr)
+        exit(1);
+
+    return memory;
+#elif defined(_WIN32)
+    void *memory = VirtualAlloc(0, size, MEM_RESERVE, PAGE_READWRITE);
 
     if (memory == nullptr)
         exit(1);
@@ -26,6 +35,9 @@ void memory_commit(void *memory, unsigned long long size)
 {
 #if defined(__linux__)
     if (mprotect(memory, size, PROT_READ | PROT_WRITE) == -1)
+        exit(1);
+#elif defined(_WIN32)
+    if (VirtualAlloc(memory, size, MEM_COMMIT, PAGE_READWRITE) == nullptr)
         exit(1);
 #endif
 }
@@ -47,5 +59,7 @@ void memory_release(void *memory, unsigned long long size)
 #if defined(__linux__)
     if (munmap(memory, size) == -1)
         exit(1);
+#elif defined(_WIN32)
+    VirtualFree(memory, 0, MEM_RELEASE);
 #endif
 }
