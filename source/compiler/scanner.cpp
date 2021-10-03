@@ -109,6 +109,7 @@ unsigned int Scanner::skip_whitespace(void)
             case '\n':
             {
                 ++line;
+                column = 0;
             }
 
             // Spacing
@@ -130,6 +131,9 @@ unsigned int Scanner::skip_whitespace(void)
 
                     while (!match('\n') && *current != '\0')
                         advance();
+
+                    ++line;
+                    column = 0;
                 }
 
                 // Multiple lines
@@ -164,6 +168,7 @@ unsigned int Scanner::skip_whitespace(void)
                         if (*current == '\n' && (nesting != pnesting))
                         {
                             ++line;
+                            column   = 0;
                             pnesting = nesting;
                         }
 
