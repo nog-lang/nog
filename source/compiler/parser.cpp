@@ -315,7 +315,6 @@ void Parser::function_declaration(Node *type, const Token &name, Token property)
     function_node.property      = property;
 
     current_function = &function_node;
-
     consume(token_rparen, "Expected ')' after function parameters.");
 
     // Make block node

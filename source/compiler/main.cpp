@@ -48,7 +48,7 @@ static bool parse_args(unsigned int argument_count, char **arguments)
                     // Read file
                     if (!input.file.read(argument))
                     {
-                        console_writef(stream_error, "$rError: $wFailed to read import path file '%'.$*\n", argument);
+                        console_writef(stream_error, "$RError: $wFailed to read import path file '%'.$*\n", argument);
                         return false;
                     }
 
@@ -57,7 +57,7 @@ static bool parse_args(unsigned int argument_count, char **arguments)
                 }
                 else
                 {
-                    console_writef(stream_error, "$rError: $wFile extension needs to end with '.nog'.$*\n");
+                    console_writef(stream_error, "$RError: $wFile extension needs to end with '.nog'.$*\n");
                     return false;
                 }
             }
@@ -71,13 +71,13 @@ static bool parse_args(unsigned int argument_count, char **arguments)
                     // Read file
                     if (!g_input.file.read(argument))
                     {
-                        console_writef(stream_error, "$rError: $wFailed to read input file '%'.$*\n", argument);
+                        console_writef(stream_error, "$RError: $wFailed to read input file '%'.$*\n", argument);
                         return false;
                     }
                 }
                 else
                 {
-                    console_writef(stream_error, "$rError: $wFile extension needs to end with '.nog'.$*\n");
+                    console_writef(stream_error, "$RError: $wFile extension needs to end with '.nog'.$*\n");
                     return false;
                 }
             }
@@ -87,7 +87,7 @@ static bool parse_args(unsigned int argument_count, char **arguments)
     // No input file?
     if (g_inputs.size == 0 && g_input.file.path == nullptr)
     {
-        console_writef(stream_error, "$rError: $wNo input files.$*\n");
+        console_writef(stream_error, "$RError: $wNo input files.$*\n");
         return false;
     }
 
